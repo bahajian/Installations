@@ -141,3 +141,61 @@ smb://desiredservername/Share_name
 Input the required credentials, and you’re done.
 And there you have it! That is how you can install and configure Samba share on Debian 11. In this article, I’ve not only walked you through the configuration process but also helped you learn the procedure behind accessing the Samba share from a Linux user.
 
+
+
+# How to configure Samba – Terminal
+To configure Samba on Debian 11 Bullseye via the terminal, start by using the cd command and move to the /etc/samba directory.
+
+cd /etc/samba/
+Next, copy the smb.conf file and create a backup. Making a backup is a good idea if you mess up your configuration.
+
+```
+sudo cp smb.conf smb.conf.bak
+```
+
+Next, create a new folder. The folder will be /var/shares/public in this example. Use the example folder. Alternatively, create your share.
+
+```
+sudo mkdir -p /var/shares/public
+```
+
+After creating the share, update /var/shares/ directory to have the correct permissions with chmod. The /var/shares/ directory should be “755”.
+
+sudo chmod 755 -R /var/shares/
+Upon updating the permissions to the directory, open the smb.conf file for editing. Then, scroll to the bottom of the configuration file and paste the following code.
+
+```
+sudo nano /etc/smb.conf
+```
+
+```
+[Share]
+comment = Samba file share.
+path = /var/shares/public/
+browseable = yes
+read only = no
+guest ok = yes
+```
+
+After editing the configuration file, save it in the Nano text editor by pressing Ctrl + O on the keyboard. Exit the text editor by pressing Ctrl + X. Then, test your Samba configuration file with the testparm command.
+
+```
+testparm
+```
+
+If the testparm command outputs no errors, you can restart the Samba service with systemctl. Restarting the Samba service will enable the changes you’ve made in your config file.
+
+```
+sudo systemctl restart smdb
+```
+
+
+Restoring the backup
+If you need to restore your Samba configuration from backup, do the following.
+
+cd /etc/samba/
+sudo rm smb.conf
+
+sudo cp smb.conf.bak smb.conf
+
+sudo systemctl restart smdb
