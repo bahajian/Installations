@@ -161,7 +161,10 @@ sudo mkdir -p /var/shares/public
 
 After creating the share, update /var/shares/ directory to have the correct permissions with chmod. The /var/shares/ directory should be “755”.
 
+```
 sudo chmod 755 -R /var/shares/
+```
+
 Upon updating the permissions to the directory, open the smb.conf file for editing. Then, scroll to the bottom of the configuration file and paste the following code.
 
 ```
