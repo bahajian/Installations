@@ -189,13 +189,3 @@ If the testparm command outputs no errors, you can restart the Samba service wit
 sudo systemctl restart smdb
 ```
 
-
-Restoring the backup
-If you need to restore your Samba configuration from backup, do the following.
-
-cd /etc/samba/
-sudo rm smb.conf
-
-sudo cp smb.conf.bak smb.conf
-
-sudo systemctl restart smdb
